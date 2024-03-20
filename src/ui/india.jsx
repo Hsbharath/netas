@@ -31,18 +31,18 @@ const India = () => {
     }
 
     return (
-        <div className='w-full h-full flex items-center justify-center p-12'>
-            <svg viewBox='-50 -50 700 800' style={{ width: '100%', height: '100%' }}>
+        <div className='w-full h-full flex items-center justify-center p-3 md:p-12'>
+            <svg viewBox='0 0 600 800' style={{ width: '300', height: '400' }}>
                 {
                     Object.entries(statesDataIndia).map(([id, path]) => (
                         <g key={id}>
                             <path 
                             key={id} 
-                            d={path} 
+                            d={path.d} 
                             fill="#233554" 
                             stroke="#57caff"
                             onClick={() => handleStateClick(id)}
-                            onMouseOver={(e) => handleMouseOver(e, id)}
+                            onMouseOver={(e) => handleMouseOver(e, path.id)}
                             onMouseOut={(e) => handleMouseOut(e)}
                             style={{ cursor: 'pointer', pointerEvents: 'visible'}}></path>
                             {tooltip.visible && <Tooltip x={tooltip.x} y={tooltip.y} text={tooltip.text} /> }

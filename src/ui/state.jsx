@@ -16,9 +16,7 @@ const StateMap = () => {
   }
 
   const handleMouseOver = (e, id) => {
-    const svgRect = e.target.ownerSVGElement.getBoundingClientRect();
     const rect = e.target.getBoundingClientRect();
-    console.log(svgRect.left, svgRect.top, rect.left, rect.top)
     setTooltip({ x: rect.left, y: rect.top, text: id, visible: true });
     e.target.setAttribute('fill', '#57caff50');
   }
@@ -29,8 +27,9 @@ const StateMap = () => {
   }
 
   return (
-    <div className='w-full h-full flex items-center justify-center p-12'>
-      <svg id="svgContainer" viewBox='0 0 323 640' style={{ width: '100%', height: '100%' }}>
+    <div className='w-full h-full flex items-center justify-center p-3 md:p-12'>
+      <svg id="svgContainer" viewBox='0 0 300 600' style={{ width: '500', height: '700', textAlign: 'center'}} 
+        className='flex items-center justify-center'>
         {
           Object.entries(karnatakaData).map(([id, path]) => (
             <g key={id}>
@@ -40,7 +39,7 @@ const StateMap = () => {
                 fill="#233554" 
                 stroke="#57caff"
                 onClick={() => handleStateClick(path)}
-                onMouseOver={(e) => handleMouseOver(e, path.title)}
+                onMouseOver={(e) => handleMouseOver(e, path.id)}
                 onMouseOut={(e) => handleMouseOut(e)}
                 style={{ cursor: 'pointer', pointerEvents: 'visible'}}></path>
                 {tooltip.visible && <Tooltip x={tooltip.x} y={tooltip.y} text={tooltip.text} /> }
