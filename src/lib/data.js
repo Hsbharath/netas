@@ -1,11 +1,11 @@
-import { unstable_noStore as noStore } from 'next/cache';
+import karnatakaData from '@/lib/countries/country/states/karnataka';
 
-import karnatakaState from './map-karnataka';
+import { unstable_noStore as noStore } from 'next/cache';
 
 export function fetchStateData(stateId) {
   noStore();
 
-  return karnatakaState;
+  return karnatakaData;
 
   //   const statePath = Object.fromEntries(
   //     Object.entries(statesDataIndia).filter(([key, _]) => key === stateId)

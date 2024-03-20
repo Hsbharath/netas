@@ -1,63 +1,55 @@
 'use client'
-import { fetchStateData } from '@/lib/data';
-import { useParams } from "next/navigation";
-
+import React, { useState } from 'react'
+import karnatakaData from '@/lib/countries/country/states/karnataka';
+import Tooltip from './tooltip';
 const StateMap = () => {
 
-  const params = useParams();
-  const stateMap =  fetchStateData(params.id);
+  const [tooltip, setTooltip] = useState({
+      x: 0,
+      y: 0,
+      text: '',
+      visible: false
+  })
 
-  const handleDistrictClick = (id) => {
-    console.log(id)
+  const handleStateClick = (id) => {
+      console.log(id);
+  }
+
+  const handleMouseOver = (e, id) => {
+    const svgRect = e.target.ownerSVGElement.getBoundingClientRect();
+    const rect = e.target.getBoundingClientRect();
+    console.log(svgRect.left, svgRect.top, rect.left, rect.top)
+    setTooltip({ x: rect.left, y: rect.top, text: id, visible: true });
+    e.target.setAttribute('fill', '#57caff50');
+  }
+
+  const handleMouseOut = (e) => {
+      setTooltip({...tooltip, visible: false});
+      e.target.setAttribute('fill', '#233554');
   }
 
   return (
-     <div className=''>
-       <h1>State:</h1>
-       <svg 
-          preserveAspectRatio="xMidYMid meet"
-          viewBox='-100 -50 1000 1000'>
-          <g transform='scale(0.4)'>
-            {
-              Object.entries(stateMap).map(([id, path]) => (
-                  <path 
-                      key={id} 
-                      d={path} 
-                      fill="#94A3B8" 
-                      stroke="black"
-                      onClick={() => handleDistrictClick(id)}
-                      style={{ cursor: 'pointer', pointerEvents: 'visible'}} />
-              ))
-            }
-          </g>
-        </svg> 
-       {/* <svg viewBox="0 0 1000 800">
-         <path d={statePath} fill="#FFFFFF" stroke="black" />
-       </svg> */}
-     </div>
+    <div className='w-full h-full flex items-center justify-center p-12'>
+      <svg id="svgContainer" viewBox='0 0 323 640' style={{ width: '100%', height: '100%' }}>
+        {
+          Object.entries(karnatakaData).map(([id, path]) => (
+            <g key={id}>
+                <path 
+                id={path.title}
+                d={path.d} 
+                fill="#233554" 
+                stroke="#57caff"
+                onClick={() => handleStateClick(path)}
+                onMouseOver={(e) => handleMouseOver(e, path.title)}
+                onMouseOut={(e) => handleMouseOut(e)}
+                style={{ cursor: 'pointer', pointerEvents: 'visible'}}></path>
+                {tooltip.visible && <Tooltip x={tooltip.x} y={tooltip.y} text={tooltip.text} /> }
+            </g>
+          ))
+        }
+      </svg> 
+    </div>
   );
 }
 
 export default StateMap;
-
-// 'use client'
-
-// import { fetchStateData } from '@/lib/data';
-
-// import { useRouter } from 'next/navigation';
-
-// export default function StateMap({id}) {
-//   const router = useRouter();
-//   console.log(router);
-  
-//   //const statePath =  fetchStateData(id);
-
-//   return (
-//     <div>
-//       <h1>State:</h1>
-//       {/* <svg viewBox="0 0 1000 800">
-//         <path d={statePath} fill="none" stroke="black" />
-//       </svg> */}
-//     </div>
-//   );
-// }
