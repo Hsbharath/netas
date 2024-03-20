@@ -1,19 +1,45 @@
 'use client'
 
-import React, { useState } from 'react'
-import { useRouter } from 'next/navigation';
-import statesDataIndia from '@/lib/countries/country/india';
+import React, { useEffect, useState } from 'react'
+import { useRouter, useParams } from 'next/navigation';
+import { fetchCountryData, fetchStateData, fetchConstituencyData } from '@/lib/data';
 import Tooltip from './tooltip';
-import Link from 'next/link';
 
-const India = () => {
+const MapBox = ({level}) => {
     const router = useRouter();
+    const params = useParams();
+
+    const [mapData, setMapData] = useState({});
     const [tooltip, setTooltip] = useState({
         x: 0,
         y: 0,
         text: '',
         visible: false
-    })
+    });
+
+    useEffect(() => {
+        fetchData(level)
+    }, []);
+
+    const fetchData = async (level) => {
+        let data = null;
+        switch(level){
+            case 'country':
+                data = await fetchCountryData(params);
+                setMapData(data);
+                break;
+            case 'state':
+                data = await fetchStateData(params);
+                setMapData(data);
+                break;
+            case 'constituency':
+                data = await fetchConstituencyData(params);
+                setMapData(data);
+                break;
+            default:
+                break;
+        }
+    }
 
     const handleStateClick = (state) => {
         router.push(`/india/${state}`);
@@ -31,10 +57,12 @@ const India = () => {
     }
 
     return (
-        <div className='w-full h-full flex items-center justify-center p-3 md:p-12'>
+        <>
+        {
+            mapData && 
             <svg viewBox='0 0 600 800' style={{ width: '300', height: '400' }}>
                 {
-                    Object.entries(statesDataIndia).map(([id, path]) => (
+                    Object.entries(mapData).map(([id, path]) => (
                         <g key={id}>
                             <path 
                             key={id} 
@@ -50,8 +78,10 @@ const India = () => {
                     ))
                 }
             </svg> 
-        </div>
+        }
+        </>
+        
     )
 }
 
-export default India
+export default MapBox

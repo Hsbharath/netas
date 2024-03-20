@@ -1,9 +1,9 @@
-import India from '@/ui/india';
+import Country from '@/ui/country';
 export default function Page() {
   return (
     <div className='w-full h-screen flex flex-col md:flex-row items-center justify-center gap-2'>
       <div className='w-full md:w-1/2 md:h-full flex items-center justify-center mx-auto'>
-        <India />
+        <Country />
       </div>
       <div className='w-full md:w-1/2 md:h-full flex items-center justify-center mx-auto'>
         <hgroup className='flex flex-col items-center justify-center space-y-6'>
