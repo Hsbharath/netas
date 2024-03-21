@@ -77,29 +77,32 @@ const MapBox = ({level}) => {
     }
 
     return (
-        <>
-        {
-            mapData && 
-            <svg viewBox={`0 0 ${width} ${height}`} style={{width: '600px', height: '800px'}}>
-                {
-                    Object.entries(mapData).map(([id, path]) => (
-                        <g key={id}>
-                            <path 
-                            key={id} 
-                            d={path.d} 
-                            fill="#233554" 
-                            stroke="#57caff"
-                            onClick={() => handleClick(id, path.category)}
-                            onMouseOver={(e) => handleMouseOver(e, path.id)}
-                            onMouseOut={(e) => handleMouseOut(e)}
-                            style={{ cursor: 'pointer', pointerEvents: 'visible'}}></path>
-                            {tooltip.visible && <Tooltip x={tooltip.x} y={tooltip.y} text={tooltip.text} /> }
-                        </g>
-                    ))
-                }
-            </svg> 
-        }
-        </>
+        <div className='w-[300px] h-[500px] md:w-[500px] md:[h-650px] lg:w-[600px] lg:h-[900px] xl:w-[650px] xl:h-[950px] bg-red-500'>
+        <div className='w-full h-[90%]'>
+            {
+                mapData && 
+                <svg viewBox={`0 0 ${width} ${height}`} style={{width: `${width}`, height: `${height}`}}>
+                    {
+                        Object.entries(mapData).map(([id, path]) => (
+                            <g key={id}>
+                                <path 
+                                key={id} 
+                                d={path.d} 
+                                fill="#233554" 
+                                stroke="#57caff"
+                                onClick={() => handleClick(id, path.category)}
+                                onMouseOver={(e) => handleMouseOver(e, path.id)}
+                                onMouseOut={(e) => handleMouseOut(e)}
+                                style={{ cursor: 'pointer', pointerEvents: 'visible'}}></path>
+                            </g>
+                        ))
+                    }
+                </svg> 
+            }
+        </div>
+        {/* {tooltip.visible && <Tooltip x={tooltip.x} y={tooltip.y} text={tooltip.text} /> } */}
+        <Tooltip x={tooltip.x} y={tooltip.y} text={tooltip.text}/>
+        </div>
         
     )
 }

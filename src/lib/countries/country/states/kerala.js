@@ -123,7 +123,7 @@ const keralaData = {
 
 const mapSize = {
   width: '312',
-  height: '640',
+  height: '660',
 };
 
 const mapData = {
