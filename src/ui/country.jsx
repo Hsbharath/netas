@@ -9,7 +9,7 @@ const Country = () => {
 
     return (
         <div className='w-full h-full flex items-center justify-center p-3 md:p-12'>
-            <MapBox level={'country'}/>
+            <MapBox level={'country'} />
         </div>
     )
 }

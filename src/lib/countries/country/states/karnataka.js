@@ -170,4 +170,14 @@ const karnatakaData = {
   },
 };
 
-export default karnatakaData;
+const mapSize = {
+  width: '312',
+  height: '640',
+};
+
+const mapData = {
+  data: karnatakaData,
+  size: mapSize,
+};
+
+export default mapData;

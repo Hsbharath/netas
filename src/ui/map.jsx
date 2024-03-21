@@ -8,7 +8,8 @@ import Tooltip from './tooltip';
 const MapBox = ({level}) => {
     const router = useRouter();
     const params = useParams();
-
+    const [width, setWidth] = useState(0);
+    const [height, setHeight] = useState(0);
     const [mapData, setMapData] = useState({});
     const [tooltip, setTooltip] = useState({
         x: 0,
@@ -26,14 +27,20 @@ const MapBox = ({level}) => {
         switch(level){
             case 'country':
                 data = await fetchCountryData(params);
+                setWidth(620);
+                setHeight(680);
                 setMapData(data);
                 break;
             case 'state':
                 data = await fetchStateData(params);
-                setMapData(data);
+                setWidth(data.size.width);
+                setHeight(data.size.height);
+                setMapData(data.data);
                 break;
             case 'constituency':
                 data = await fetchConstituencyData(params);
+                setWidth(312);
+                setHeight(640);
                 setMapData(data);
                 break;
             default:
@@ -41,8 +48,21 @@ const MapBox = ({level}) => {
         }
     }
 
-    const handleStateClick = (state) => {
-        router.push(`/india/${state}`);
+    const handleClick = (id, category) => { 
+        console.log(id, category)
+        switch (category) {
+            case 'country':
+                router.push(`/${params.country}`);
+                break;
+            case 'state':
+                router.push(`/${params.country}/${id}`);
+                break;
+            case 'constituency':
+                router.push(`/${params.country}/${params.state}/${id}`);
+                break;
+            default:
+                break;
+        }
     }
 
     const handleMouseOver = (e, id) => {
@@ -60,7 +80,7 @@ const MapBox = ({level}) => {
         <>
         {
             mapData && 
-            <svg viewBox='0 0 600 800' style={{ width: '300', height: '400' }}>
+            <svg viewBox={`0 0 ${width} ${height}`} style={{width: '600px', height: '800px'}}>
                 {
                     Object.entries(mapData).map(([id, path]) => (
                         <g key={id}>
@@ -69,7 +89,7 @@ const MapBox = ({level}) => {
                             d={path.d} 
                             fill="#233554" 
                             stroke="#57caff"
-                            onClick={() => handleStateClick(id)}
+                            onClick={() => handleClick(id, path.category)}
                             onMouseOver={(e) => handleMouseOver(e, path.id)}
                             onMouseOut={(e) => handleMouseOut(e)}
                             style={{ cursor: 'pointer', pointerEvents: 'visible'}}></path>
