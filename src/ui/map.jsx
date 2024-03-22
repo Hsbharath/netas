@@ -13,6 +13,7 @@ const MapBox = ({level}) => {
     const [width, setWidth] = useState(312);
     const [height, setHeight] = useState(640);
     const [mapData, setMapData] = useState({});
+    const [errorMessage, setErrorMessage] = useState('');
     const [tooltip, setTooltip] = useState({
         x: 0,
         y: 0,
@@ -35,10 +36,15 @@ const MapBox = ({level}) => {
                 break;
             case 'state':
                 data = await fetchStateData(params);
-                setWidth(data.size.width);
-                setHeight(data.size.height);
-                setMapData(data.data);
-                break;
+                console.log(data instanceof Error);
+                if(!(data instanceof Error)){
+                    setWidth(data.size.width);
+                    setHeight(data.size.height);
+                    setMapData(data.data);
+                    break;
+                }else{
+                    setErrorMessage(`Error fetching - ${StatesById[params.state]} ${level} data`);
+                }
             case 'constituency':
                 data = await fetchConstituencyData(params);
                 setWidth(312);
@@ -79,7 +85,7 @@ const MapBox = ({level}) => {
     }
 
     return (
-        <div className='w-full md:h-screen flex flex-col items-center justify-center gap-2'>
+        <div className='w-full h-full md:h-screen flex flex-col items-center justify-center gap-2'>
             <div className='relative w-full h-full flex flex-col items-center justify-center mx-auto' style={{ height: 'calc(100vh - 100px)'}}>
                 {
                     level === 'state' &&
@@ -116,8 +122,9 @@ const MapBox = ({level}) => {
                 }
             </div>
             <div className='w-full flex items-center justify-center' style={{ height: '100px'}}>
-                {tooltip.visible && <Tooltip x={tooltip.x} y={tooltip.y} text={tooltip.text} /> }
-                {!tooltip.visible && <Tooltip x={tooltip.x} y={tooltip.y} text={`Tap/Click on map to see details`} /> }
+                {errorMessage === '' && tooltip.visible && <Tooltip color={'sky'} text={tooltip.text} /> }
+                {errorMessage === '' && !tooltip.visible && <Tooltip color={'sky'} text={`Tap/Click on map to see details`} /> }
+                {errorMessage && <Tooltip color={'red'} text={errorMessage} />}
             </div>
         </div>
         
