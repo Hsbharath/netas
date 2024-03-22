@@ -6,7 +6,6 @@ import { unstable_noStore as noStore } from 'next/cache';
 export async function fetchCountryData(params) {
   noStore();
   const countryData = await import(`@/lib/countries/country/${params.country}`);
-  console.log(countryData);
   return countryData.default;
 }
 
@@ -16,7 +15,6 @@ export async function fetchStateData(params) {
   const stateData = await import(
     `@/lib/countries/country/states/${params.state}`
   );
-  console.log(stateData);
   return stateData.default;
 }
 

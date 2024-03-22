@@ -79,19 +79,21 @@ const MapBox = ({level}) => {
     }
 
     return (
-        <div className='w-full md:h-screen flex flex-col items-center justify-center gap-2 bg-green-400'>
-            <div className='w-full h-full flex flex-col items-center justify-center mx-auto' style={{ height: 'calc(100vh - 100px)'}}>
+        <div className='w-full md:h-screen flex flex-col items-center justify-center gap-2'>
+            <div className='relative w-full h-full flex flex-col items-center justify-center mx-auto' style={{ height: 'calc(100vh - 100px)'}}>
                 {
                     level === 'state' &&
-                    <div className='w-full h-[50px] p-2'>
-                        <Link href={`/${params.country}`}>
-                            <span className='text-4xl font-semibold uppercase'>{StatesById[params.state]}</span>
-                        </Link>
+                    <div className='fixed top-0 left-0 w-full h-[50px] flex items-center justify-start gap-2 py-2 px-4'>
+                        <Link href={`/${params.country}`}>Back
+                        </Link> 
+                        <p className='text-2xl font-medium uppercase'>
+                            {StatesById[params.state]}
+                        </p>
                     </div>
                 }
                 {
                     mapData && 
-                    <svg  viewBox={`0 0 100% ${height}`}
+                    <svg  viewBox={`0 0 ${width} ${height}`}
                         width='100%'
                         height='100%'
                         style={{ position: 'relative', margin: 'auto', padding: '12px' }}>
@@ -115,7 +117,7 @@ const MapBox = ({level}) => {
             </div>
             <div className='w-full flex items-center justify-center' style={{ height: '100px'}}>
                 {tooltip.visible && <Tooltip x={tooltip.x} y={tooltip.y} text={tooltip.text} /> }
-                {!tooltip.visible && <Tooltip x={tooltip.x} y={tooltip.y} text={`Hover Over ${level} ${width} ${height}`} /> }
+                {!tooltip.visible && <Tooltip x={tooltip.x} y={tooltip.y} text={`Tap/Click on map to see details`} /> }
             </div>
         </div>
         
