@@ -181,4 +181,14 @@ const statesDataIndia = {
   },
 };
 
-export default statesDataIndia;
+const mapSize = {
+  width: '642',
+  height: '680',
+};
+
+const mapData = {
+  data: statesDataIndia,
+  size: mapSize,
+};
+
+export default mapData;

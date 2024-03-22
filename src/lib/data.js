@@ -5,7 +5,9 @@ import { unstable_noStore as noStore } from 'next/cache';
 
 export async function fetchCountryData(params) {
   noStore();
-  return statesDataIndia;
+  const countryData = await import(`@/lib/countries/country/${params.country}`);
+  console.log(countryData);
+  return countryData.default;
 }
 
 export async function fetchStateData(params) {

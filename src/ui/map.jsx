@@ -4,12 +4,14 @@ import React, { useEffect, useState } from 'react'
 import { useRouter, useParams } from 'next/navigation';
 import { fetchCountryData, fetchStateData, fetchConstituencyData } from '@/lib/data';
 import Tooltip from './tooltip';
+import StatesById from '@/lib/state-by-id';
+import Link from 'next/link';
 
 const MapBox = ({level}) => {
     const router = useRouter();
     const params = useParams();
-    const [width, setWidth] = useState(0);
-    const [height, setHeight] = useState(0);
+    const [width, setWidth] = useState(312);
+    const [height, setHeight] = useState(640);
     const [mapData, setMapData] = useState({});
     const [tooltip, setTooltip] = useState({
         x: 0,
@@ -27,9 +29,9 @@ const MapBox = ({level}) => {
         switch(level){
             case 'country':
                 data = await fetchCountryData(params);
-                setWidth(620);
-                setHeight(680);
-                setMapData(data);
+                setWidth(data.size.width);
+                setHeight(data.size.height);
+                setMapData(data.data);
                 break;
             case 'state':
                 data = await fetchStateData(params);
@@ -77,11 +79,22 @@ const MapBox = ({level}) => {
     }
 
     return (
-        <div className='w-full h-full flex flex-col items-center justify-center gap-8 overflow-hidden'>
-            <div className='w-full h-[calc(100vh - 100px)]'>
+        <div className='w-full md:h-screen flex flex-col items-center justify-center gap-2 bg-green-400'>
+            <div className='w-full h-full flex flex-col items-center justify-center mx-auto' style={{ height: 'calc(100vh - 100px)'}}>
+                {
+                    level === 'state' &&
+                    <div className='w-full h-[50px] p-2'>
+                        <Link href={`/${params.country}`}>
+                            <span className='text-4xl font-semibold uppercase'>{StatesById[params.state]}</span>
+                        </Link>
+                    </div>
+                }
                 {
                     mapData && 
-                    <svg style={{position: 'relative', width: '429px'}} viewBox={`0 0 ${width} ${height}`} preserveAspectRatio='xMinYMin meet'>
+                    <svg  viewBox={`0 0 100% ${height}`}
+                        width='100%'
+                        height='100%'
+                        style={{ position: 'relative', margin: 'auto', padding: '12px' }}>
                         {
                             Object.entries(mapData).map(([id, path]) => (
                                 <g key={id}>
@@ -100,9 +113,9 @@ const MapBox = ({level}) => {
                     </svg> 
                 }
             </div>
-            <div className='w-full h-[100px] bg-green-200'>
+            <div className='w-full flex items-center justify-center' style={{ height: '100px'}}>
                 {tooltip.visible && <Tooltip x={tooltip.x} y={tooltip.y} text={tooltip.text} /> }
-                {!tooltip.visible && <Tooltip x={tooltip.x} y={tooltip.y} text={`Hover Over ${level}`} /> }
+                {!tooltip.visible && <Tooltip x={tooltip.x} y={tooltip.y} text={`Hover Over ${level} ${width} ${height}`} /> }
             </div>
         </div>
         
