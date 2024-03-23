@@ -15,7 +15,7 @@ export default function Page() {
       </div>
 
       {/* Right Section */}
-      <div className='w-full md:w-1/2 md:h-full flex items-center justify-center mx-auto'>
+      <div className='w-full md:w-1/2 md:h-full flex items-center justify-center mx-auto overflow-y-scroll'>
         {/* <hgroup className='flex flex-col items-center justify-center space-y-6'>
           <h4 className='text-2xl md:text-8xl font-semibold'>India</h4>
           <p className='text-xl md:text-2xl font-semibold'>

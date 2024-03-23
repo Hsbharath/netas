@@ -53,7 +53,7 @@ const ParlimentMap = ({level}) => {
                 enabled: true,
                 format: '{point.label}',
                 style: {
-                    textOutline: '3px contrast'
+                    textOutline: '9px contrast'
                 }
             },
             // Circular options
@@ -73,7 +73,7 @@ const ParlimentMap = ({level}) => {
             type: 'item'
         },
         title: {
-            text: 'Lok sabha seats 2019'
+            text: `Lok sabha seats ${level === 'country' ? params.country : params.this.state} - 2019`
         },
         legend: {
             labelFormat: '{name} <span style="opacity: 0.4">{y}</span>'
@@ -89,7 +89,7 @@ const ParlimentMap = ({level}) => {
                 enabled: true,
                 format: '{point.label}',
                 style: {
-                    textOutline: '3px contrast'
+                    textOutline: '9px contrast'
                 }
             },
             // Circular options
@@ -115,7 +115,7 @@ const ParlimentMap = ({level}) => {
     };
 
     return (
-        <div className='w-full h-full md:h-screen flex flex-col items-start justify-start p-4'>
+        <div className='w-full h-full md:h-screen flex flex-col items-start justify-start gap-4 p-4'>
             <div className='w-full h-[500px]'>
                 <HighchartsReact
                     highcharts={Highcharts}
