@@ -122,8 +122,10 @@ const keralaData = {
 };
 
 const mapSize = {
+  left: '0',
+  top: '-100',
   width: '312',
-  height: '600',
+  height: '800',
 };
 
 const mapData = {

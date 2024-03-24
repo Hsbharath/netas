@@ -1,6 +1,3 @@
-import statesDataIndia from '@/lib/countries/country/india';
-import karnatakaData from '@/lib/countries/country/states/karnataka';
-
 import { unstable_noStore as noStore } from 'next/cache';
 
 export async function fetchCountryData(params) {
@@ -26,27 +23,45 @@ export async function fetchStateData(params) {
 
 export async function fetchConstituencyData(params) {
   noStore();
-  return karnatakaData;
+  return [];
 }
 
 export async function fetchParlimentData(params) {
   const data = [
-    ['NDA', 353, '#FF9650', ''],
-    ['UPA', 90, '#1EB4FF', ''],
-    ['MGB', 15, '#00C86E', ''],
-    ['OTH', 84, '#8489BB', ''],
+    ['National Democratic Alliance', 353, '#FF9650', 'NDA'],
+    ['United Progressive Alliance', 90, '#1EB4FF', 'UPA'],
+    ['Mahagathbandhan', 15, '#00C86E', 'MGB'],
+    ['Others', 84, '#8489BB', 'OTH'],
   ];
   return data;
 }
 
 export async function fetchParlimentDataByState(params) {
-  const data = [
-    ['NDA', 353, '#FF9650', ''],
-    ['UPA', 90, '#1EB4FF', ''],
-    ['MGB', 15, '#00C86E', ''],
-    ['OTH', 84, '#8489BB', ''],
-  ];
-  return data;
+  const counts = {
+    NDA: 0,
+    UPA: 0,
+    MGB: 0,
+    OTH: 0,
+  };
+  try {
+    const stateData = await import(
+      `@/lib/countries/country/states/${params.state}`
+    );
+    Object.entries(stateData).forEach(([key, value]) => {
+      Object.entries(value.data).forEach(([key, value]) => {
+        counts[value.party]++;
+      });
+    });
+    const data = [
+      ['National Democratic Alliance', counts['NDA'], '#FF9650', 'NDA'],
+      ['United Progressive Alliance', counts['UPA'], '#1EB4FF', 'UPA'],
+      ['Mahagathbandhan', counts['MGB'], '#00C86E', 'MGB'],
+      ['Others', counts['OTH'], '#8489BB', 'OTH'],
+    ];
+    return data;
+  } catch (error) {
+    return error;
+  }
 }
 
 export async function fetchParlimentDataByStateConst(params) {

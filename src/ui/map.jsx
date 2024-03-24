@@ -10,8 +10,8 @@ import Link from 'next/link';
 const MapBox = ({level}) => {
     const router = useRouter();
     const params = useParams();
-    const [width, setWidth] = useState(312);
-    const [height, setHeight] = useState(640);
+    const [size, setSize] = useState(0);
+    // const [height, setHeight] = useState(640);
     const [mapData, setMapData] = useState({});
     const [errorMessage, setErrorMessage] = useState('');
     const [tooltip, setTooltip] = useState({
@@ -30,16 +30,15 @@ const MapBox = ({level}) => {
         switch(level){
             case 'country':
                 data = await fetchCountryData(params);
-                setWidth(data.size.width);
-                setHeight(data.size.height);
+                setSize(data.size);
+                // setHeight(data.size.height);
                 setMapData(data.data);
                 break;
             case 'state':
                 data = await fetchStateData(params);
-                console.log(data instanceof Error);
                 if(!(data instanceof Error)){
-                    setWidth(data.size.width);
-                    setHeight(data.size.height);
+                    setSize(data.size);
+                    // setHeight(data.size.height);
                     setMapData(data.data);
                     break;
                 }else{
@@ -47,8 +46,8 @@ const MapBox = ({level}) => {
                 }
             case 'constituency':
                 data = await fetchConstituencyData(params);
-                setWidth(312);
-                setHeight(640);
+                setSize(312);
+                // setHeight(640);
                 setMapData(data);
                 break;
             default:
@@ -99,7 +98,7 @@ const MapBox = ({level}) => {
                 }
                 {
                     mapData && 
-                    <svg  viewBox={`0 0 ${width} ${height}`}
+                    <svg  viewBox={`${size.left} ${size.top} ${size.width} ${size.height}`}
                         width='100%'
                         height='100%'
                         style={{ position: 'relative', margin: 'auto', padding: '12px' }}>
@@ -112,7 +111,7 @@ const MapBox = ({level}) => {
                                     fill="#233554" 
                                     stroke="#57caff"
                                     onClick={() => handleClick(id, path.category)}
-                                    onMouseOver={(e) => handleMouseOver(e, path.id)}
+                                    onMouseOver={(e) => handleMouseOver(e, path.title)}
                                     onMouseOut={(e) => handleMouseOut(e)}
                                     style={{ cursor: 'pointer', pointerEvents: 'visible'}}></path>
                                 </g>

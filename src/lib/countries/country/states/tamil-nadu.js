@@ -236,8 +236,10 @@ const tamilnaduData = {
 };
 
 const mapSize = {
-  width: '312',
-  height: '640',
+  left: '0',
+  top: '0',
+  width: '292',
+  height: '620',
 };
 
 const mapData = {

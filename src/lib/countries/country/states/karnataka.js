@@ -171,7 +171,9 @@ const karnatakaData = {
 };
 
 const mapSize = {
-  width: '312',
+  left: '0',
+  top: '-50',
+  width: '412',
   height: '680',
 };
 

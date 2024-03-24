@@ -104,8 +104,10 @@ const telanagaData = {
 };
 
 const mapSize = {
-  width: '360',
-  height: '640',
+  left: '0',
+  top: '50',
+  width: '300',
+  height: '500',
 };
 
 const mapData = {

@@ -152,6 +152,8 @@ const andhraPradeshData = {
 };
 
 const mapSize = {
+  left: '0',
+  top: '0',
   width: '312',
   height: '480',
 };

@@ -30,6 +30,7 @@ const ParlimentMap = ({level}) => {
                 break;
             case 'state':
                 data = await fetchParlimentDataByState(params);
+                setData(data);
                 break;
             case 'constituency':
                 data = await fetchParlimentDataByStateConst(params);
@@ -73,7 +74,7 @@ const ParlimentMap = ({level}) => {
             type: 'item'
         },
         title: {
-            text: `Lok sabha seats ${level === 'country' ? params.country : params.this.state} - 2019`
+            text: `Lok sabha seats - ${level === 'country' ? params.country : params.state} - 2019`
         },
         legend: {
             labelFormat: '{name} <span style="opacity: 0.4">{y}</span>'
