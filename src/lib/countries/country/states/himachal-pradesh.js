@@ -27,9 +27,9 @@ const himachalPradeshData = {
 
 const mapSize = {
   left: '0',
-  top: '100',
-  width: '292',
-  height: '385',
+  top: '0',
+  width: '696',
+  height: '640',
 };
 
 const seatsTotal = {
