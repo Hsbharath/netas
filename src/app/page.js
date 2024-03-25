@@ -1,7 +1,5 @@
 import Link from 'next/link';
 
-import { useEffect } from 'react';
-
 export default function Home() {
   return (
     <main className='flex h-screen flex-col items-start justify-start p-24 overflow-hidden'>
