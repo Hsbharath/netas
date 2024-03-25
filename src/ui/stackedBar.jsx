@@ -78,7 +78,9 @@ function StackedBar() {
     },
     plotOptions: {
         column: {
+            //colors: [ '#FF9650', '#1EB4FF', '#00C86E', '#8489BB'],
             stacking: 'normal',
+            colorByPoint: true,
             dataLabels: {
                 enabled: true
             }
