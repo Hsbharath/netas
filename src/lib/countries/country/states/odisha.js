@@ -134,9 +134,17 @@ const mapSize = {
   height: '780',
 };
 
+const seatsTotal = {
+  NDA: 8,
+  UPA: 1,
+  MGB: 0,
+  OTH: 12,
+};
+
 const mapData = {
   data: odishaData,
   size: mapSize,
+  seats: seatsTotal,
 };
 
 export default mapData;

@@ -14,9 +14,17 @@ const mapSize = {
   height: '640',
 };
 
+const seatsTotal = {
+  NDA: 0,
+  UPA: 0,
+  MGB: 0,
+  OTH: 1,
+};
+
 const mapData = {
   data: sikkimData,
   size: mapSize,
+  seats: seatsTotal,
 };
 
 export default mapData;

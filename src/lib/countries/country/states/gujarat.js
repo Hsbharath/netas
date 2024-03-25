@@ -164,9 +164,17 @@ const mapSize = {
   height: '420',
 };
 
+const seatsTotal = {
+  NDA: 26,
+  UPA: 0,
+  MGB: 0,
+  OTH: 0,
+};
+
 const mapData = {
   data: gujaratData,
   size: mapSize,
+  seats: seatsTotal,
 };
 
 export default mapData;

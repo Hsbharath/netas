@@ -260,9 +260,17 @@ const mapSize = {
   height: '420',
 };
 
+const seatsTotal = {
+  NDA: 18,
+  UPA: 2,
+  MGB: 0,
+  OTH: 22,
+};
+
 const mapData = {
   data: westBengalData,
   size: mapSize,
+  seatsTotal: seatsTotal,
 };
 
 export default mapData;

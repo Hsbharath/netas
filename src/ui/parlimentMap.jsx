@@ -47,7 +47,7 @@ const ParlimentMap = ({level}) => {
       if (chart) {
         chart.update({
           series: [{
-            name: 'Representatives',
+            name: '',
             keys: ['name', 'y', 'color', 'label'],
             data: data,
             dataLabels: {
@@ -71,30 +71,44 @@ const ParlimentMap = ({level}) => {
 
     const options = {
         chart: {
-            type: 'item'
+            style: {
+                // fontFamily: 'monospace',
+                color: "#FFFFFF"
+            },
+            title: {
+                style: {
+                    color: '#FFFFFF',
+                    font: 'bold 16px "Trebuchet MS", Verdana, sans-serif'
+                }
+            },
+            type: 'item',
+            spacing: [50, 50, 50, 50],
         },
         title: {
-            text: `Lok sabha seats - ${level === 'country' ? params.country : params.state} - 2019`
+            text: `LOK SABHA SEATS - ${level === 'country' ? params.country.toUpperCase() : params.state.toUpperCase()} - 2019`,
+            style: {
+            fontSize: '24px',
+         }
         },
         legend: {
-            labelFormat: '{name} <span style="opacity: 0.4">{y}</span>'
+            labelFormat: '{name} <span style="opacity: 0.4">{y}</span>',
         },
         subtitle: {
-            text: 'Myneta.info. Source: <a href="https://myneta.info" target="_blank">My neta info</a> '
+            text: 'Myneta.info. Source: <a href="https://myneta.info" target="_blank">My neta info</a> ',
         },
         series: [{
-            name: 'Representatives',
+            name: '',
             keys: ['name', 'y', 'color', 'label'],
             data: data || [],
             dataLabels: {
                 enabled: true,
                 format: '{point.label}',
                 style: {
-                    textOutline: '9px contrast'
+                    textOutline: '12px contrast'
                 }
             },
             // Circular options
-            center: ['50%', '88%'],
+            center: ['50%', '80%'],
             size: '170%',
             startAngle: -100,
             endAngle: 100
@@ -102,10 +116,11 @@ const ParlimentMap = ({level}) => {
         responsive: {
             rules: [{
                 condition: {
-                    maxWidth: 600
+                    maxWidth: 400
                 },
                 chartOptions: {
                     series: [{
+                        keys: ['name', 'y', 'color'],
                         dataLabels: {
                             distance: -30
                         }
@@ -116,8 +131,8 @@ const ParlimentMap = ({level}) => {
     };
 
     return (
-        <div className='w-full h-full md:h-screen flex flex-col items-start justify-start gap-4 p-4'>
-            <div className='w-full h-[500px]'>
+        <div className='w-full h-[400px] flex flex-col items-start justify-start px-4'>
+            <div className='w-full'>
                 <HighchartsReact
                     highcharts={Highcharts}
                     options={options}

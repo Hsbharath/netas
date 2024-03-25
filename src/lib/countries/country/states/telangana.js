@@ -110,9 +110,17 @@ const mapSize = {
   height: '500',
 };
 
+const seatsTotal = {
+  NDA: 4,
+  UPA: 3,
+  MGB: 0,
+  OTH: 10,
+};
+
 const mapData = {
   data: telanagaData,
   size: mapSize,
+  seats: seatsTotal,
 };
 
 export default mapData;

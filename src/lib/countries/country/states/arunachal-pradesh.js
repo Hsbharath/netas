@@ -20,9 +20,17 @@ const mapSize = {
   height: '640',
 };
 
+const seatsTotal = {
+  NDA: 2,
+  UPA: 0,
+  MGB: 0,
+  OTH: 0,
+};
+
 const mapData = {
   data: arunachalPradeshData,
   size: mapSize,
+  seats: seatsTotal,
 };
 
 export default mapData;

@@ -1,5 +1,7 @@
 import { unstable_noStore as noStore } from 'next/cache';
 
+import StatesById from './state-by-id';
+
 export async function fetchCountryData(params) {
   noStore();
   const countryData = await import(`@/lib/countries/country/${params.country}`);
@@ -36,6 +38,8 @@ export async function fetchParlimentData(params) {
   return data;
 }
 
+//BJP, SS, AIADMK, JD(U), SAD, PMK, LJP, BDJS, DMDK, AGP, AD(S), AJSU, PT, TMC, PNK, AINRC, BPF, NDPP, KC(T), RLP
+
 export async function fetchParlimentDataByState(params) {
   const counts = {
     NDA: 0,
@@ -57,7 +61,7 @@ export async function fetchParlimentDataByState(params) {
       ['United Progressive Alliance', counts['UPA'], '#1EB4FF', 'UPA'],
       ['Mahagathbandhan', counts['MGB'], '#00C86E', 'MGB'],
       ['Others', counts['OTH'], '#8489BB', 'OTH'],
-    ];
+    ].filter((party) => party[1] > 0);
     return data;
   } catch (error) {
     return error;
@@ -72,4 +76,26 @@ export async function fetchParlimentDataByStateConst(params) {
     ['OTH', 84, '#8489BB', ''],
   ];
   return data;
+}
+
+export async function fetchElectedByState() {
+  noStore();
+  try {
+    const data = await import(`@/lib/countries/country/ElectedCountByState`);
+    return data.default;
+  } catch (error) {
+    return error;
+  }
+}
+
+export async function fetchElectedAllianceCountByState() {
+  noStore();
+  try {
+    const data = await import(
+      `@/lib/countries/country/ElectedCountOfAllianceByState`
+    );
+    return data.default;
+  } catch (error) {
+    return error;
+  }
 }

@@ -177,6 +177,13 @@ const mapSize = {
   height: '680',
 };
 
+const seatsTotal = {
+  NDA: 25,
+  UPA: 2,
+  MGB: 0,
+  OTH: 1,
+};
+
 const mapData = {
   data: karnatakaData,
   size: mapSize,

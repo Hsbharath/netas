@@ -20,9 +20,17 @@ const mapSize = {
   height: '640',
 };
 
+const seatsTotal = {
+  NDA: 1,
+  UPA: 1,
+  MGB: 0,
+  OTH: 0,
+};
+
 const mapData = {
   data: meghalayaData,
   size: mapSize,
+  seats: seatsTotal,
 };
 
 export default mapData;

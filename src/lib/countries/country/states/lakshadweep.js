@@ -13,10 +13,17 @@ const mapSize = {
   width: '712',
   height: '440',
 };
+const seatsTotal = {
+  NDA: 0,
+  UPA: 1,
+  MGB: 0,
+  OTH: 0,
+};
 
 const mapData = {
   data: lakshadweepData,
   size: mapSize,
+  seats: seatsTotal,
 };
 
 export default mapData;

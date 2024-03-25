@@ -21,6 +21,13 @@ const MapBox = ({level}) => {
         visible: false
     });
 
+    const colors = {
+        'NDA': '#FF9650',
+        'UPA': '#1EB4FF',
+        'MGB': '#00C86E',
+        'OTH': '#8489BB'
+    }
+
     useEffect(() => {
         fetchData(level)
     }, []);
@@ -56,12 +63,12 @@ const MapBox = ({level}) => {
     }
 
     const handleClick = (id, category) => { 
-        console.log(id, category)
         switch (category) {
             case 'country':
                 router.push(`/${params.country}`);
                 break;
             case 'state':
+                console.log(id);
                 router.push(`/${params.country}/${id}`);
                 break;
             case 'constituency':
@@ -72,20 +79,22 @@ const MapBox = ({level}) => {
         }
     }
 
-    const handleMouseOver = (e, id) => {
+    const handleMouseOver = (e, path) => {
         const rect = e.target.getBoundingClientRect();
-        setTooltip({ x: rect.left, y: rect.top, text: id, visible: true });
-        e.target.setAttribute('fill', '#57caff50');
+        const color = path.party === '' ? '#233554' : colors[path.party]/90;
+        setTooltip({ x: rect.left, y: rect.top, text: path.title, visible: true });
+        e.target.setAttribute('fill', color);
     }
 
-    const handleMouseOut = (e) => {
+    const handleMouseOut = (e, path) => {
         setTooltip({...tooltip, visible: false});
-        e.target.setAttribute('fill', '#233554');
+        const color = path.party === '' ? '#FFFFFF' : colors[path.party];
+        e.target.setAttribute('fill', color);
     }
 
     return (
         <div className='w-full h-full md:h-screen flex flex-col items-center justify-center gap-2'>
-            <div className='relative w-full h-full flex flex-col items-center justify-center mx-auto' style={{ height: 'calc(100vh - 100px)'}}>
+            <div className='relative w-full h-full flex flex-col items-center justify-center' style={{ height: 'calc(100vh - 100px)'}}>
                 {
                     level === 'state' &&
                     <div className='fixed top-0 left-0 w-full h-[50px] flex items-center justify-start gap-2 py-2 px-4'>
@@ -99,20 +108,21 @@ const MapBox = ({level}) => {
                 {
                     mapData && 
                     <svg  viewBox={`${size.left} ${size.top} ${size.width} ${size.height}`}
-                        width='100%'
-                        height='100%'
-                        style={{ position: 'relative', margin: 'auto', padding: '12px' }}>
+                        width="100%"
+                        height="100%"
+                        style={{ alignContent: 'center', margin: 'auto', padding: '12px' }}>
                         {
                             Object.entries(mapData).map(([id, path]) => (
                                 <g key={id}>
                                     <path 
                                     key={id} 
                                     d={path.d} 
-                                    fill="#233554" 
-                                    stroke="#57caff"
+                                    fill={path.party === '' ? "#FFFFFF" : colors[path.party]}
+                                    //stroke="#57caff"
+                                    stroke='#233554'
                                     onClick={() => handleClick(id, path.category)}
-                                    onMouseOver={(e) => handleMouseOver(e, path.title)}
-                                    onMouseOut={(e) => handleMouseOut(e)}
+                                    onMouseOver={(e) => handleMouseOver(e, path)}
+                                    onMouseOut={(e) => handleMouseOut(e, path)}
                                     style={{ cursor: 'pointer', pointerEvents: 'visible'}}></path>
                                 </g>
                             ))

@@ -297,9 +297,17 @@ const mapSize = {
   height: '540',
 };
 
+const seatsTotal = {
+  NDA: 41,
+  UPA: 5,
+  MGB: 0,
+  OTH: 2,
+};
+
 const mapData = {
   data: maharashtraData,
   size: mapSize,
+  seats: seatsTotal,
 };
 
 export default mapData;

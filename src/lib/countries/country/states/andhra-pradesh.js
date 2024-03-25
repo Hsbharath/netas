@@ -158,9 +158,17 @@ const mapSize = {
   height: '480',
 };
 
+const seatsTotal = {
+  NDA: 0,
+  UPA: 0,
+  MGB: 0,
+  OTH: 25,
+};
+
 const mapData = {
   data: andhraPradeshData,
   size: mapSize,
+  seats: seatsTotal,
 };
 
 export default mapData;

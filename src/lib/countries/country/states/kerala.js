@@ -128,9 +128,17 @@ const mapSize = {
   height: '800',
 };
 
+const seatsTotal = {
+  NDA: 0,
+  UPA: 19,
+  MGB: 0,
+  OTH: 1,
+};
+
 const mapData = {
   data: keralaData,
   size: mapSize,
+  seats: seatsTotal,
 };
 
 export default mapData;

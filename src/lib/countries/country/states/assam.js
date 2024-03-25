@@ -92,9 +92,17 @@ const mapSize = {
   height: '480',
 };
 
+const seatsTotal = {
+  NDA: 9,
+  UPA: 3,
+  MGB: 0,
+  OTH: 2,
+};
+
 const mapData = {
   data: assamData,
   size: mapSize,
+  seats: seatsTotal,
 };
 
 export default mapData;
